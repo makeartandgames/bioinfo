@@ -13,7 +13,7 @@ setup(
     keywords = "biopython split fasta concat",
     entry_points = {
         'console_scripts': [
-            'fasta = bioinfo.fasta:main'
+            'splitfasta = bioinfo.fasta:main'
             #'sequence_concat = bioinfo.sequence_concat:main',
             #'sequence_files_concat = bioinfo.sequence_files_concat:main',
             #'sequence_split = bioinfo_old.sequence_split:main',
