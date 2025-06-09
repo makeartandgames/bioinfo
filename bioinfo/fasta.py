@@ -55,3 +55,7 @@ def main():
         splitfasta(_input, args.wrap)
     else:
         writefasta(_input, sys.stdout, wrap=args.wrap)
+
+
+if __name__ == '__main__':
+    main()
