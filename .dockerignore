@@ -1,4 +1,3 @@
-*
 !**/*.py
 !requirements.txt
 !run_tests.sh
