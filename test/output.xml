@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3 (Python 3.11.13 on linux)" generated="2025-06-09T20:30:07.252561" rpa="false" schemaversion="5">
+<suite id="s1" name="Fasta" source="/content/docker-data-setup/test/fasta.robot">
+<test id="s1-t1" name="fasta reads from stdin" line="17">
+<kw name="Run Process" owner="Process">
+<msg time="2025-06-09T20:30:07.308405" level="INFO">Starting process:
+cat /content/docker-data-setup/test/testinput/col.fasta | fasta - &gt; /content/docker-data-setup/test/out.fasta</msg>
+<msg time="2025-06-09T20:30:07.308997" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-06-09T20:30:07.636587" level="INFO">Process completed.</msg>
+<msg time="2025-06-09T20:30:07.636846" level="INFO">${process_result} = &lt;result object with rc 0&gt;</msg>
+<var>${process_result}</var>
+<arg>cat ${in_fasta} | fasta - &gt; ${actual}</arg>
+<arg>shell=True</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.307966" elapsed="0.328917"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:07.638276" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${process_result.rc}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.637294" elapsed="0.001074"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${process_result.stdout}</arg>
+<arg>Error</arg>
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.638679" elapsed="0.000689"/>
+</kw>
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:07.640005" level="INFO" html="true">File '&lt;a href="file:///content/docker-data-setup/test/out.fasta"&gt;/content/docker-data-setup/test/out.fasta&lt;/a&gt;' exists.</msg>
+<arg>${actual}</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.639664" elapsed="0.000424"/>
+</kw>
+<kw name="File Should Not Be Empty" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:07.640665" level="INFO" html="true">File '&lt;a href="file:///content/docker-data-setup/test/out.fasta"&gt;/content/docker-data-setup/test/out.fasta&lt;/a&gt;' contains 738 bytes.</msg>
+<arg>${actual}</arg>
+<doc>Fails if the specified file is empty.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.640321" elapsed="0.000416"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:07.641291" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/out.fasta"&gt;/content/docker-data-setup/test/out.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:07.641535" level="INFO">${actual_contents} = &gt;sequence1 some description !@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT...</msg>
+<var>${actual_contents}</var>
+<arg>${actual}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.640976" elapsed="0.000599"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:07.642072" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/expected/singleline.fasta"&gt;/content/docker-data-setup/test/expected/singleline.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:07.642280" level="INFO">${expected_contents} = &gt;sequence1 some description !@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT...</msg>
+<var>${expected_contents}</var>
+<arg>${expected}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.641805" elapsed="0.000512"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${expected_contents}</arg>
+<arg>${actual_contents}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.642613" elapsed="0.000359"/>
+</kw>
+<status status="PASS" start="2025-06-09T20:30:07.306234" elapsed="0.337004"/>
+</test>
+<test id="s1-t2" name="fasta reads from file" line="30">
+<kw name="Run Process" owner="Process">
+<msg time="2025-06-09T20:30:07.644640" level="INFO">Starting process:
+fasta /content/docker-data-setup/test/testinput/col.fasta &gt; /content/docker-data-setup/test/out.fasta</msg>
+<msg time="2025-06-09T20:30:07.645127" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-06-09T20:30:07.948334" level="INFO">Process completed.</msg>
+<msg time="2025-06-09T20:30:07.948675" level="INFO">${process_result} = &lt;result object with rc 0&gt;</msg>
+<var>${process_result}</var>
+<arg>fasta ${in_fasta} &gt; ${actual}</arg>
+<arg>shell=True</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.644214" elapsed="0.304509"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:07.950069" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${process_result.rc}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.949066" elapsed="0.001091"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${process_result.stdout}</arg>
+<arg>Error</arg>
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.950436" elapsed="0.000746"/>
+</kw>
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:07.951782" level="INFO" html="true">File '&lt;a href="file:///content/docker-data-setup/test/out.fasta"&gt;/content/docker-data-setup/test/out.fasta&lt;/a&gt;' exists.</msg>
+<arg>${actual}</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.951438" elapsed="0.000437"/>
+</kw>
+<kw name="File Should Not Be Empty" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:07.952377" level="INFO" html="true">File '&lt;a href="file:///content/docker-data-setup/test/out.fasta"&gt;/content/docker-data-setup/test/out.fasta&lt;/a&gt;' contains 738 bytes.</msg>
+<arg>${actual}</arg>
+<doc>Fails if the specified file is empty.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.952093" elapsed="0.000422"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:07.952987" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/out.fasta"&gt;/content/docker-data-setup/test/out.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:07.953233" level="INFO">${actual_contents} = &gt;sequence1 some description !@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT...</msg>
+<var>${actual_contents}</var>
+<arg>${actual}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.952729" elapsed="0.000537"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:07.953774" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/expected/singleline.fasta"&gt;/content/docker-data-setup/test/expected/singleline.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:07.953970" level="INFO">${expected_contents} = &gt;sequence1 some description !@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT...</msg>
+<var>${expected_contents}</var>
+<arg>${expected}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.953493" elapsed="0.000510"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${expected_contents}</arg>
+<arg>${actual_contents}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.954291" elapsed="0.000317"/>
+</kw>
+<status status="PASS" start="2025-06-09T20:30:07.643649" elapsed="0.311196"/>
+</test>
+<test id="s1-t3" name="fasta used in shell pipeline" line="43">
+<kw name="Run Process" owner="Process">
+<msg time="2025-06-09T20:30:07.956151" level="INFO">Starting process:
+fasta /content/docker-data-setup/test/testinput/col.fasta | grep -v '&gt;' | grep -Eo '[Aa]' | wc -l</msg>
+<msg time="2025-06-09T20:30:07.956904" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-06-09T20:30:08.264661" level="INFO">Process completed.</msg>
+<msg time="2025-06-09T20:30:08.265048" level="INFO">${process_result} = &lt;result object with rc 0&gt;</msg>
+<var>${process_result}</var>
+<arg>fasta ${in_fasta} | grep -v '&gt;' | grep -Eo '[Aa]' | wc -l</arg>
+<arg>shell=True</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-06-09T20:30:07.955799" elapsed="0.309300"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:08.266717" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${process_result.rc}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.265556" elapsed="0.001301"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${process_result.stdout}</arg>
+<arg>160</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.267222" elapsed="0.001053"/>
+</kw>
+<status status="PASS" start="2025-06-09T20:30:07.955211" elapsed="0.313336"/>
+</test>
+<test id="s1-t4" name="fasta wraps sequences" line="51">
+<kw name="Run Process" owner="Process">
+<msg time="2025-06-09T20:30:08.270276" level="INFO">Starting process:
+fasta /content/docker-data-setup/test/testinput/col.fasta | fasta --wrap - &gt; /content/docker-data-setup/test/out.fasta</msg>
+<msg time="2025-06-09T20:30:08.270841" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-06-09T20:30:08.820036" level="INFO">Process completed.</msg>
+<msg time="2025-06-09T20:30:08.820292" level="INFO">${process_result} = &lt;result object with rc 0&gt;</msg>
+<var>${process_result}</var>
+<arg>fasta ${in_fasta} | fasta --wrap - &gt; ${actual}</arg>
+<arg>shell=True</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.269758" elapsed="0.550569"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:08.821583" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${process_result.rc}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.820678" elapsed="0.001042"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:08.822593" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/out.fasta"&gt;/content/docker-data-setup/test/out.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:08.822989" level="INFO">${actual_contents} = &gt;sequence1 some description !@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT...</msg>
+<var>${actual_contents}</var>
+<arg>${actual}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.822085" elapsed="0.000943"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:08.823723" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/testinput/col.fasta"&gt;/content/docker-data-setup/test/testinput/col.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:08.823925" level="INFO">${expected_contents} = &gt;sequence1 some description !@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT...</msg>
+<var>${expected_contents}</var>
+<arg>${in_fasta}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.823292" elapsed="0.000666"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${expected_contents}</arg>
+<arg>${actual_contents}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.824249" elapsed="0.000462"/>
+</kw>
+<status status="PASS" start="2025-06-09T20:30:08.268936" elapsed="0.556069"/>
+</test>
+<test id="s1-t5" name="fasta splits all identifiers to new files" line="61">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:08.826715" level="INFO" html="true">Directory '&lt;a href="file:///content/docker-data-setup/test/output"&gt;/content/docker-data-setup/test/output&lt;/a&gt;' already exists.</msg>
+<arg>${test_directory}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.826392" elapsed="0.000395"/>
+</kw>
+<kw name="Empty Directory" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:08.827389" level="INFO" html="true">Listing contents of directory '&lt;a href="file:///content/docker-data-setup/test/output"&gt;/content/docker-data-setup/test/output&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:08.827646" level="INFO" html="true">Emptied directory '&lt;a href="file:///content/docker-data-setup/test/output"&gt;/content/docker-data-setup/test/output&lt;/a&gt;'.</msg>
+<arg>${test_directory}</arg>
+<doc>Deletes all the content from the given directory.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.827061" elapsed="0.000670"/>
+</kw>
+<kw name="Run Process" owner="Process">
+<msg time="2025-06-09T20:30:08.828549" level="INFO">Starting process:
+fasta --split /content/docker-data-setup/test/testinput/col.fasta</msg>
+<msg time="2025-06-09T20:30:08.829071" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-06-09T20:30:09.162782" level="INFO">Process completed.</msg>
+<msg time="2025-06-09T20:30:09.163022" level="INFO">${process_result} = &lt;result object with rc 0&gt;</msg>
+<var>${process_result}</var>
+<arg>fasta --split ${in_fasta}</arg>
+<arg>shell=True</arg>
+<arg>cwd=${test_directory}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-06-09T20:30:08.828016" elapsed="0.335037"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:09.164451" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${process_result.rc}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.163396" elapsed="0.001214"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-06-09T20:30:09.165639" level="INFO">@{idents} = [ sequence1 | sequence2____________________________ ]</msg>
+<var>@{idents}</var>
+<arg>sequence1</arg>
+<arg>sequence2____________________________</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.164996" elapsed="0.000770"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:09.166956" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/output/sequence1.fasta"&gt;/content/docker-data-setup/test/output/sequence1.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:09.167188" level="INFO">${contents} = &gt;sequence1 some description !@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT...</msg>
+<var>${contents}</var>
+<arg>${test_directory}/${id}.fasta</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.166698" elapsed="0.000522"/>
+</kw>
+<kw name="Get Line Count" owner="String">
+<msg time="2025-06-09T20:30:09.167629" level="INFO">2 lines.</msg>
+<msg time="2025-06-09T20:30:09.167738" level="INFO">${numlines} = 2</msg>
+<var>${numlines}</var>
+<arg>${contents}</arg>
+<doc>Returns and logs the number of lines in the given string.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.167424" elapsed="0.000338"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:09.168061" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<arg>2</arg>
+<arg>${numlines}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.167895" elapsed="0.000229"/>
+</kw>
+<var name="${id}">sequence1</var>
+<status status="PASS" start="2025-06-09T20:30:09.166515" elapsed="0.001646"/>
+</iter>
+<iter>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:09.168655" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/output/sequence2____________________________.fasta"&gt;/content/docker-data-setup/test/output/sequence2____________________________.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:09.168858" level="INFO">${contents} = &gt;sequence2!@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTG...</msg>
+<var>${contents}</var>
+<arg>${test_directory}/${id}.fasta</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.168391" elapsed="0.000499"/>
+</kw>
+<kw name="Get Line Count" owner="String">
+<msg time="2025-06-09T20:30:09.169149" level="INFO">2 lines.</msg>
+<msg time="2025-06-09T20:30:09.169219" level="INFO">${numlines} = 2</msg>
+<var>${numlines}</var>
+<arg>${contents}</arg>
+<doc>Returns and logs the number of lines in the given string.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.169020" elapsed="0.000219"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:09.169500" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<arg>2</arg>
+<arg>${numlines}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.169337" elapsed="0.000237"/>
+</kw>
+<var name="${id}">sequence2____________________________</var>
+<status status="PASS" start="2025-06-09T20:30:09.168295" elapsed="0.001319"/>
+</iter>
+<var>${id}</var>
+<value>@{idents}</value>
+<status status="PASS" start="2025-06-09T20:30:09.166013" elapsed="0.003667"/>
+</for>
+<status status="PASS" start="2025-06-09T20:30:08.825640" elapsed="0.344274"/>
+</test>
+<test id="s1-t6" name="fasta splits works with stdin" line="74">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:09.171198" level="INFO" html="true">Directory '&lt;a href="file:///content/docker-data-setup/test/output"&gt;/content/docker-data-setup/test/output&lt;/a&gt;' already exists.</msg>
+<arg>${test_directory}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.170881" elapsed="0.000429"/>
+</kw>
+<kw name="Empty Directory" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:09.171862" level="INFO" html="true">Listing contents of directory '&lt;a href="file:///content/docker-data-setup/test/output"&gt;/content/docker-data-setup/test/output&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:09.172082" level="INFO" html="true">Emptied directory '&lt;a href="file:///content/docker-data-setup/test/output"&gt;/content/docker-data-setup/test/output&lt;/a&gt;'.</msg>
+<arg>${test_directory}</arg>
+<doc>Deletes all the content from the given directory.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.171580" elapsed="0.000580"/>
+</kw>
+<kw name="Run Process" owner="Process">
+<msg time="2025-06-09T20:30:09.172895" level="INFO">Starting process:
+cat /content/docker-data-setup/test/testinput/col.fasta | fasta --split -</msg>
+<msg time="2025-06-09T20:30:09.173412" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-06-09T20:30:09.510149" level="INFO">Process completed.</msg>
+<msg time="2025-06-09T20:30:09.510388" level="INFO">${process_result} = &lt;result object with rc 0&gt;</msg>
+<var>${process_result}</var>
+<arg>cat ${in_fasta} | fasta --split -</arg>
+<arg>shell=True</arg>
+<arg>cwd=${test_directory}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.172384" elapsed="0.338033"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:09.511754" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${process_result.rc}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.510815" elapsed="0.001029"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-06-09T20:30:09.512647" level="INFO">@{idents} = [ sequence1 | sequence2____________________________ ]</msg>
+<var>@{idents}</var>
+<arg>sequence1</arg>
+<arg>sequence2____________________________</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.512135" elapsed="0.000567"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:09.513788" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/output/sequence1.fasta"&gt;/content/docker-data-setup/test/output/sequence1.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:09.514000" level="INFO">${contents} = &gt;sequence1 some description !@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT...</msg>
+<var>${contents}</var>
+<arg>${test_directory}/${id}.fasta</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.513512" elapsed="0.000521"/>
+</kw>
+<kw name="Get Line Count" owner="String">
+<msg time="2025-06-09T20:30:09.514324" level="INFO">2 lines.</msg>
+<msg time="2025-06-09T20:30:09.514418" level="INFO">${numlines} = 2</msg>
+<var>${numlines}</var>
+<arg>${contents}</arg>
+<doc>Returns and logs the number of lines in the given string.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.514179" elapsed="0.000262"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:09.514823" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<arg>2</arg>
+<arg>${numlines}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.514641" elapsed="0.000244"/>
+</kw>
+<var name="${id}">sequence1</var>
+<status status="PASS" start="2025-06-09T20:30:09.513311" elapsed="0.001614"/>
+</iter>
+<iter>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2025-06-09T20:30:09.515339" level="INFO" html="true">Getting file '&lt;a href="file:///content/docker-data-setup/test/output/sequence2____________________________.fasta"&gt;/content/docker-data-setup/test/output/sequence2____________________________.fasta&lt;/a&gt;'.</msg>
+<msg time="2025-06-09T20:30:09.515550" level="INFO">${contents} = &gt;sequence2!@#$%^&amp;*()_+-=[]{}.,&gt;&lt;/?';:"
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTG...</msg>
+<var>${contents}</var>
+<arg>${test_directory}/${id}.fasta</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.515161" elapsed="0.000423"/>
+</kw>
+<kw name="Get Line Count" owner="String">
+<msg time="2025-06-09T20:30:09.515856" level="INFO">2 lines.</msg>
+<msg time="2025-06-09T20:30:09.515932" level="INFO">${numlines} = 2</msg>
+<var>${numlines}</var>
+<arg>${contents}</arg>
+<doc>Returns and logs the number of lines in the given string.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.515716" elapsed="0.000292"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-06-09T20:30:09.516531" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<arg>2</arg>
+<arg>${numlines}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.516120" elapsed="0.000484"/>
+</kw>
+<var name="${id}">sequence2____________________________</var>
+<status status="PASS" start="2025-06-09T20:30:09.515055" elapsed="0.001592"/>
+</iter>
+<var>${id}</var>
+<value>@{idents}</value>
+<status status="PASS" start="2025-06-09T20:30:09.512895" elapsed="0.003801"/>
+</for>
+<status status="PASS" start="2025-06-09T20:30:09.170254" elapsed="0.346720"/>
+</test>
+<kw name="Terminate All Processes" owner="Process" type="TEARDOWN">
+<doc>Terminates all still running processes started by this library.</doc>
+<status status="PASS" start="2025-06-09T20:30:09.518352" elapsed="0.000254"/>
+</kw>
+<status status="PASS" start="2025-06-09T20:30:07.253722" elapsed="2.264944"/>
+</suite>
+<statistics>
+<total>
+<stat pass="6" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Fasta" id="s1" pass="6" fail="0" skip="0">Fasta</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
